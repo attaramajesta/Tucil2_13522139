@@ -29,8 +29,10 @@ def divide_conquer(control_points, iterations, bezier=[], midpoints=[], current_
         midpoints.append([midpoint_1, midpoint_2, midpoint_3])
         print(midpoints)
         
-        midpoints_left = divide_conquer([control_points[0], midpoint_1, midpoint_3], iterations - 1, bezier, midpoints, current_iteration + 1)
-        midpoints_right = divide_conquer([midpoint_3, midpoint_2, control_points[2]], iterations - 1, bezier, midpoints, current_iteration + 1)
+        # left branch
+        divide_conquer([control_points[0], midpoint_1, midpoint_3], iterations - 1, bezier, midpoints, current_iteration + 1)
+        # right branch
+        divide_conquer([midpoint_3, midpoint_2, control_points[2]], iterations - 1, bezier, midpoints, current_iteration + 1)
 
         return bezier, midpoints
 
@@ -50,7 +52,7 @@ def get_user_input():
 def data():
     control_points = [(1, 3), (2, 5), (7, 6)]
     iterations = 3
-    algorithm = 'bf'
+    algorithm = 'dac'
     return control_points, iterations, algorithm
 
 def main():
