@@ -64,6 +64,7 @@ def get_user_input():
             print("An error occurred:", e)
 
 def calculate(control_points, iterations, algorithm):
+    start_time = time.time() 
     plt.figure(figsize=(7, 5))
     plt.title('Bézier Curve')
     plt.xlabel('X')
@@ -73,17 +74,13 @@ def calculate(control_points, iterations, algorithm):
     control_y = [point[1] for point in control_points]
     plt.plot(control_x, control_y, color='#FC8EAC', linestyle='-', label='Control Points')
 
-    start_time = time.time() 
-    print("Start time:", start_time)
-
     if algorithm == 'bf':
         bezier = []
         bezier = brute_force(control_points, iterations)
         end_time = time.time()
-        print("End time:", end_time)
 
         for points in bezier:
-            plt.pause(0.1)
+            plt.pause(0.025)
             plt.plot(points[0], points[1], 'ko')
 
         bezier.extend([control_points[0], control_points[-1]])
@@ -99,18 +96,17 @@ def calculate(control_points, iterations, algorithm):
         bezier, midpoints = divide_conquer(control_points, iterations)
 
         end_time = time.time()
-        print("End time:", end_time)
 
         for pair in midpoints: 
-            plt.pause(0.1)
+            plt.pause(0.05)
             plt.plot(pair[0][0], pair[0][1], 'ko', alpha=0.25, markersize=5) 
-            plt.pause(0.15)
+            plt.pause(0.025)
             plt.plot([pair[0][0], pair[1][0]], [pair[0][1], pair[1][1]], color='b', alpha=0.25)  
             plt.plot(pair[1][0], pair[1][1], 'ko', alpha=0.25, markersize=5) 
-            plt.pause(0.15)
+            plt.pause(0.025)
             plt.plot(pair[2][0], pair[2][1], 'ko', alpha=1, markersize=5) 
             plt.text(pair[2][0] + 0.1, pair[2][1], f'  ({pair[2][0]:.2f}, {pair[2][1]:.2f})', fontsize=8, ha='left', va='center')
-            plt.pause(0.15)
+            plt.pause(0.025)
 
         bezier.extend([control_points[0], control_points[-1]])
         sorted_bezier = sorted(bezier, key=lambda point: point[0])
