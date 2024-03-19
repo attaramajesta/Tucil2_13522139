@@ -25,27 +25,25 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def main():
-    while True:
-
-        clear_screen()
-        welcome_menu()
-        choice = input("Enter your choice: ")
-        os.system('pause')
-        os.system('cls' if os.name == 'nt' else 'clear')
-        
-        if choice == '1':
-            control_points, iterations = get_user_input()
-            calculate(control_points, iterations, 'dac')
-            print("Divide and Conquer results plotted!")
-        elif choice == '2':
-            control_points, iterations = get_user_input()
-            calculate(control_points, iterations, 'bf')
-            print("Brute Force results plotted!")
-        elif choice == '3':
-            print("Exiting the program. Goodbye!")
-            sys.exit()
-        else:
-            print("Invalid choice. Please enter 1, 2, or 3.")
+    clear_screen()
+    welcome_menu()
+    choice = input("Enter your choice: ")
+    os.system('pause')
+    os.system('cls' if os.name == 'nt' else 'clear')
+    
+    if choice == '1':
+        control_points, iterations = get_user_input()
+        calculate(control_points, iterations, 'dac')
+        print("Divide and Conquer results plotted!")
+    elif choice == '2':
+        control_points, iterations = get_user_input()
+        calculate(control_points, iterations, 'bf')
+        print("Brute Force results plotted!")
+    elif choice == '3':
+        print("Exiting the program. Goodbye!")
+        sys.exit()
+    else:
+        print("Invalid choice. Please enter 1, 2, or 3.")
     
 def get_user_input():
     while True:
@@ -85,7 +83,7 @@ def calculate(control_points, iterations, algorithm):
         print("End time:", end_time)
 
         for points in bezier:
-            plt.pause(0.2)
+            plt.pause(0.1)
             plt.plot(points[0], points[1], 'ko')
 
         bezier.extend([control_points[0], control_points[-1]])
@@ -120,6 +118,15 @@ def calculate(control_points, iterations, algorithm):
         plt.plot(*zip(*sorted_bezier), color='g', label='Divide And Conquer')
         execution_time = format((end_time - start_time) * 1000, '.10f')
         print("Execution Time:", execution_time, "ms")
+
+    # Adjusting the scale of the plot based on input data
+    min_x = min(min(control_x), min([point[0] for point in bezier]))
+    max_x = max(max(control_x), max([point[0] for point in bezier]))
+    min_y = min(min(control_y), min([point[1] for point in bezier]))
+    max_y = max(max(control_y), max([point[1] for point in bezier]))
+
+    plt.xlim(min_x - 1, max_x + 1)
+    plt.ylim(min_y - 1, max_y + 1)
 
     print("Close the plot to exit...")
 
