@@ -1,4 +1,4 @@
-# Tucil2_13522139_13522154
+# Tucil2_13522139
 
 # Bézier Curves using Divide and Conquer Algorithm
 > Building Bézier Curves using the Midpoint Calculation for Divide and Conquer and Brute-Force.
@@ -12,7 +12,7 @@
 
 
 ## General Information
-Membuat Kurva Bezier berdasarkan control points dan jumlah iterasi yang dimasukkan oleh pengguna. Menggunakan konsep divide and conquer yang membagi masalah menjadi subsegmen, menyelesaikannya masing-masing, dam mengkombinasikan hasil untuk mendapat final product. 
+The program will display Bezier Curve based on the control points and the number of iterations entered by the user. It utilizes the concept of divide and conquer, which divides the problem into subsegments, solves them individually, and combines the results to obtain the final product.
 <!-- You don't have to answer all the questions - just the ones relevant to your project. -->
 
 
