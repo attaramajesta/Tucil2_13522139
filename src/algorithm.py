@@ -1,6 +1,4 @@
-import matplotlib.pyplot as plt
 import numpy as np
-import time
 
 def brute_force(control_points, iterations):
     points = []
@@ -27,8 +25,7 @@ def divide_conquer(control_points, iterations, bezier=[], midpoints=[], current_
         
         bezier.append(midpoint_3)
         midpoints.append([midpoint_1, midpoint_2, midpoint_3])
-        print(midpoints)
-        
+
         # left branch
         divide_conquer([control_points[0], midpoint_1, midpoint_3], iterations - 1, bezier, midpoints, current_iteration + 1)
         # right branch
@@ -39,16 +36,7 @@ def divide_conquer(control_points, iterations, bezier=[], midpoints=[], current_
 def calculate_midpoint(point1, point2):
     return ((point1[0] + point2[0]) / 2, (point1[1] + point2[1]) / 2)
 
-def get_user_input():
-    num_points = int(input("Enter the number of control points: "))
-    control_points = []
-    for i in range(num_points):
-        x, y = map(float, input(f"Enter the x and y coordinates of control point {i + 1}, separated by a space: ").split())
-        control_points.append((x, y))
-    iterations = int(input("Enter the number of iterations: "))
-    algorithm = input("Enter 'bf' for brute force or 'dac' for divide and conquer: ")
-    return control_points, iterations, algorithm
-
+#testing
 def data():
     control_points = [(1, 3), (2, 5), (7, 6)]
     iterations = 3
