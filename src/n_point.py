@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import time
 
-# not finished
+# not integrated
 
 def linear_bezier(p0, p1, t):
     return ((1 - t) * p0[0] + t * p1[0], (1 - t) * p0[1] + t * p1[1])
