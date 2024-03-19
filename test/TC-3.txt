@@ -1,0 +1,6 @@
+control points:
+1 7
+8 6
+9 1
+
+iterations: 3

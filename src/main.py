@@ -30,19 +30,17 @@ def main():
         clear_screen()
         welcome_menu()
         choice = input("Enter your choice: ")
+        os.system('pause')
+        os.system('cls' if os.name == 'nt' else 'clear')
         
         if choice == '1':
             control_points, iterations = get_user_input()
             calculate(control_points, iterations, 'dac')
             print("Divide and Conquer results plotted!")
-            os.system('pause')
-            os.system('cls' if os.name == 'nt' else 'clear')
         elif choice == '2':
             control_points, iterations = get_user_input()
             calculate(control_points, iterations, 'bf')
             print("Brute Force results plotted!")
-            os.system('pause')
-            os.system('cls' if os.name == 'nt' else 'clear')
         elif choice == '3':
             print("Exiting the program. Goodbye!")
             sys.exit()
@@ -78,10 +76,13 @@ def calculate(control_points, iterations, algorithm):
     plt.plot(control_x, control_y, color='#FC8EAC', linestyle='-', label='Control Points')
 
     start_time = time.time() 
+    print("Start time:", start_time)
 
     if algorithm == 'bf':
+        bezier = []
         bezier = brute_force(control_points, iterations)
         end_time = time.time()
+        print("End time:", end_time)
 
         for points in bezier:
             plt.pause(0.2)
@@ -92,10 +93,15 @@ def calculate(control_points, iterations, algorithm):
 
         plt.pause(1)
         plt.plot(*zip(*sorted_bezier), color='g', label='Brute Force')
+        execution_time = format((end_time - start_time) * 1000, '.20f')
+        print("Execution Time:", execution_time, "ms")
     elif algorithm == 'dac':
+        bezier = []
+        midpoints = []
         bezier, midpoints = divide_conquer(control_points, iterations)
 
         end_time = time.time()
+        print("End time:", end_time)
 
         for pair in midpoints: 
             plt.pause(0.1)
@@ -111,12 +117,11 @@ def calculate(control_points, iterations, algorithm):
         bezier.extend([control_points[0], control_points[-1]])
         sorted_bezier = sorted(bezier, key=lambda point: point[0])
 
-        plt.pause(1)
         plt.plot(*zip(*sorted_bezier), color='g', label='Divide And Conquer')
+        execution_time = format((end_time - start_time) * 1000, '.10f')
+        print("Execution Time:", execution_time, "ms")
 
-    execution_time = format((end_time - start_time) * 1000, '.10f')
-    print("Execution Time:", execution_time, "ms")
-    print("Close the plot to continue...")
+    print("Close the plot to exit...")
 
     plt.legend()
     plt.grid(True)
